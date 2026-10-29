@@ -1,0 +1,64 @@
+name: Build, test, and put it in the pile
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Another Windows build
+    runs-on: windows-latest
+    steps:
+      - name: Check out the latest breakthrough
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build
+        shell: pwsh
+        run: ./Build.ps1
+      - name: Check the numbers
+        shell: pwsh
+        run: ./scripts/Test.ps1
+      - name: Package a solution to a solved problem
+        shell: pwsh
+        run: ./scripts/Package.ps1
+      - name: Keep the pile available for inspection
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: PutItInThePile-Windows
+          path: dist/*
+          if-no-files-found: error
+
+  release:
+    name: Announce the breakthrough
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the tagged source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build the release
+        shell: pwsh
+        run: |
+          ./Build.ps1
+          ./scripts/Test.ps1
+          ./scripts/Package.ps1
+      - name: Publish the ZIP and checksum
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PILE_RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          gh release create $env:PILE_RELEASE_TAG ./dist/PutItInThePile-Windows.zip ./dist/SHA256SUMS.txt --verify-tag --title "Put It in the Pile $env:PILE_RELEASE_TAG" --notes-file ./docs/RELEASE-NOTES.md
+          if ($LASTEXITCODE -ne 0) { throw 'Release publishing failed.' }

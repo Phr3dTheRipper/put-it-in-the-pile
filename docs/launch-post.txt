@@ -1,0 +1,24 @@
+Title: I built a Codex usage meter because apparently we were running low
+
+After seeing only several thousand Codex usage meters, I noticed a gap in the
+market: none of them were the one I had personally made.
+
+Introducing PUT IT IN THE PILE.
+
+It displays your Codex usage in a small window above your other windows.
+I know. Take a moment.
+
+Features:
+- The same numbers you already had access to, now in my rectangle.
+- Always on top, reflecting the importance of this contribution.
+- A rigorously maintained 0% originality score.
+- Compact mode. The same lack of innovation, in less space.
+- A button labeled "PUT IT IN THE PILE" that adds another usage meter to a pile
+  of usage meters. Finally, a feature designed around the community's feedback.
+
+It actually reads your real Codex quota. I was going to make the numbers up,
+but then it would have had a differentiator.
+
+No waitlist. No monetization strategy. No reason.
+
+Put it in the pile.

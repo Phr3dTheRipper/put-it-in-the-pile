@@ -1,0 +1,64 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Put It in the Pile" Width="414" Height="744" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" FontFamily="Segoe UI" Foreground="#25251F" Topmost="True" UseLayoutRounding="True">
+ <Window.Resources>
+  <SolidColorBrush x:Key="Ink" Color="#25251F"/>
+  <Style TargetType="Button">
+   <Setter Property="Cursor" Value="Hand"/><Setter Property="FontSize" Value="12"/><Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="Foreground" Value="#25251F"/><Setter Property="Background" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="10,7"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="Bg" Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Bg" Property="Opacity" Value="0.72"/></Trigger><Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Bg" Property="BorderThickness" Value="2"/><Setter TargetName="Bg" Property="BorderBrush" Value="#D25A24"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter TargetName="Bg" Property="Opacity" Value="0.5"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="Mono" TargetType="TextBlock"><Setter Property="FontFamily" Value="Consolas"/><Setter Property="FontSize" Value="10"/><Setter Property="Foreground" Value="#77776C"/></Style>
+ </Window.Resources>
+ <Border x:Name="Shell" Margin="7" Background="#F5F3E9" CornerRadius="11" BorderThickness="1" BorderBrush="#555548">
+  <Grid>
+   <Grid x:Name="FullView">
+    <Grid.RowDefinitions><RowDefinition Height="43"/><RowDefinition Height="*"/><RowDefinition Height="39"/></Grid.RowDefinitions>
+    <Border x:Name="DragRegion" BorderBrush="#DAD8CB" BorderThickness="0,0,0,1" Background="Transparent" CornerRadius="11,11,0,0">
+     <Grid Margin="16,0,7,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="37"/><ColumnDefinition Width="32"/><ColumnDefinition Width="32"/></Grid.ColumnDefinitions>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" IsHitTestVisible="False"><TextBlock Text="▰" Foreground="#D65328" FontSize="18" Margin="0,0,7,2"/><TextBlock Text="REDUNDANT SOFTWARE DEPT." Style="{StaticResource Mono}" FontSize="10" Foreground="#4F5046"/></StackPanel>
+      <Button x:Name="CompactButton" Grid.Column="1" Content="─" ToolTip="Compact mode (Esc)" AutomationProperties.Name="Compact mode"/>
+      <Button x:Name="MenuButton" Grid.Column="2" Content="•••" FontSize="11" ToolTip="More unnecessary features" AutomationProperties.Name="Options"/>
+      <Button x:Name="CloseButton" Grid.Column="3" Content="×" FontSize="20" ToolTip="Close. The pile will survive." AutomationProperties.Name="Close"/>
+     </Grid>
+    </Border>
+    <StackPanel Grid.Row="1" Margin="23,19,23,0">
+     <Grid><TextBlock Text="ANOTHER CODEX USAGE METER" Style="{StaticResource Mono}" FontSize="10" Foreground="#B94A22"/><TextBlock x:Name="EditionLabel" Text="No. 0001" HorizontalAlignment="Right" Style="{StaticResource Mono}"/></Grid>
+     <TextBlock FontFamily="Arial Black" FontWeight="Black" FontSize="43" LineHeight="43" LineStackingStrategy="BlockLineHeight" Margin="-2,10,0,0" Text="PUT IT IN&#x0a;THE PILE."/>
+     <TextBlock Text="The world had enough. We made one anyway." FontSize="12" Foreground="#6E6F63" Margin="0,10,0,18"/>
+     <Border Background="#E9E7DC" BorderBrush="#D8D6C9" BorderThickness="1" CornerRadius="6" Padding="15,12">
+      <StackPanel>
+       <Grid><TextBlock Text="YOUR CODEX USAGE" Style="{StaticResource Mono}" Foreground="#55564C"/><StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Ellipse x:Name="StatusDot" Width="5" Height="5" Fill="#9A9A87" Margin="0,0,5,0"/><TextBlock x:Name="SourceLabel" Text="CONNECTING" Style="{StaticResource Mono}" FontSize="9"/></StackPanel></Grid>
+       <Grid Margin="0,7,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal"><TextBlock x:Name="RemainingValue" Text="—" FontFamily="Arial" FontSize="52" FontWeight="Bold"/><TextBlock x:Name="RemainingSuffix" Text="%" FontFamily="Arial" FontSize="22" FontWeight="Bold" Margin="2,24,0,0" VerticalAlignment="Top"/></StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"><TextBlock x:Name="WindowLabel" Text="QUOTA" Style="{StaticResource Mono}" TextAlignment="Right"/><TextBlock Text="remaining" FontSize="12" Foreground="#646658" TextAlignment="Right" Margin="0,4,0,0"/></StackPanel>
+       </Grid>
+       <Grid x:Name="MeterTrack" Height="10" Margin="0,3,0,9" Background="#D4D3C5"><Border x:Name="MeterFill" Background="#D65328" Width="0" HorizontalAlignment="Left"/></Grid>
+       <Grid><TextBlock x:Name="ResetLabel" Text="Looking for your existing Codex sign-in…" FontSize="10" Foreground="#6E6F63"/><Button x:Name="RefreshButton" Content="↻" FontSize="17" Padding="3,0" HorizontalAlignment="Right" Margin="0,-6,-3,-6" ToolTip="Refresh usage (Ctrl+R)" AutomationProperties.Name="Refresh usage"/></Grid>
+       <Border x:Name="SecondWindow" Visibility="Collapsed" BorderBrush="#D4D3C5" BorderThickness="0,1,0,0" Margin="0,11,0,0" Padding="0,8,0,0"><TextBlock x:Name="SecondLabel" FontSize="11" Foreground="#646658"/></Border>
+      </StackPanel>
+     </Border>
+     <Grid Margin="0,13,0,13"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="1"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <StackPanel><TextBlock Text="ORIGINALITY" Style="{StaticResource Mono}"/><StackPanel Orientation="Horizontal" Margin="0,3,0,0"><TextBlock Text="0%" FontSize="19" FontWeight="Bold"/><TextBlock Text="  by design" Foreground="#7E7E6F" FontSize="10" VerticalAlignment="Center" ToolTip="This is a joke. We did not commission a study."/></StackPanel></StackPanel>
+      <Border Grid.Column="1" Background="#DAD8CB"/>
+      <StackPanel Grid.Column="2" Margin="22,0,0,0"><TextBlock Text="PROBLEMS SOLVED" Style="{StaticResource Mono}"/><StackPanel Orientation="Horizontal" Margin="0,3,0,0"><TextBlock Text="1" FontSize="19" FontWeight="Bold"/><TextBlock Text="  no meter → meter" Foreground="#7E7E6F" FontSize="10" VerticalAlignment="Center"/></StackPanel></StackPanel>
+     </Grid>
+     <Border BorderBrush="#D3D1C3" BorderThickness="1" CornerRadius="5" Background="#ECEADE" Height="131" ClipToBounds="True">
+      <Grid><Grid.Background><DrawingBrush TileMode="Tile" Viewport="0,0,12,12" ViewportUnits="Absolute"><DrawingBrush.Drawing><DrawingGroup><GeometryDrawing Brush="Transparent" Geometry="M0,0 H12 V12 H0 Z"/><GeometryDrawing Brush="#C6C4B5"><GeometryDrawing.Geometry><EllipseGeometry Center="6,6" RadiusX="0.65" RadiusY="0.65"/></GeometryDrawing.Geometry></GeometryDrawing></DrawingGroup></DrawingBrush.Drawing></DrawingBrush></Grid.Background>
+       <Canvas x:Name="PileCanvas" ClipToBounds="True"/>
+       <Border Background="#ECEADE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,7" Padding="4,2"><TextBlock Text="THE PILE / LOCAL COLLECTION" Style="{StaticResource Mono}" FontSize="8"/></Border>
+       <Border Background="#ECEADE" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8" Padding="4,2"><TextBlock x:Name="PileCountLabel" Text="1 METER. SAME IDEA." Style="{StaticResource Mono}" FontSize="8"/></Border>
+      </Grid>
+     </Border>
+     <Button x:Name="TossButton" Background="#D65328" Foreground="#FFF9ED" Margin="0,12,0,0" Height="45" AutomationProperties.Name="Put it in the pile"><Grid Width="309"><TextBlock Text="PUT IT IN THE PILE" FontFamily="Consolas" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/><TextBlock Text="↘" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"/></Grid></Button>
+     <TextBlock x:Name="Punchline" Text="A new meter. A familiar feeling." HorizontalAlignment="Center" FontSize="10" Foreground="#77776A" Margin="0,8,0,0"/>
+    </StackPanel>
+    <Border Grid.Row="2" BorderBrush="#DAD8CB" BorderThickness="0,1,0,0"><Grid Margin="11,0,14,0"><Button x:Name="PinButton" Content="● ALWAYS ON TOP" Foreground="#53664C" FontFamily="Consolas" FontSize="9" HorizontalAlignment="Left" ToolTip="Toggle always on top" AutomationProperties.Name="Toggle always on top"/><TextBlock Text="SAME NUMBERS. NEW WINDOW." Style="{StaticResource Mono}" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center"/></Grid></Border>
+   </Grid>
+   <Grid x:Name="CompactView" Visibility="Collapsed" Background="Transparent" Margin="12,8"><Grid.ColumnDefinitions><ColumnDefinition Width="44"/><ColumnDefinition Width="*"/><ColumnDefinition Width="39"/><ColumnDefinition Width="32"/><ColumnDefinition Width="28"/></Grid.ColumnDefinitions>
+    <TextBlock Text="▰" Foreground="#D65328" FontSize="31" VerticalAlignment="Center"/>
+    <StackPanel Grid.Column="1" VerticalAlignment="Center"><TextBlock Text="SAME NUMBERS. LESS WINDOW." Style="{StaticResource Mono}" FontSize="8"/><TextBlock x:Name="CompactValue" Text="Connecting…" FontSize="15" FontWeight="Bold" Margin="0,3,0,0"/></StackPanel>
+    <Button x:Name="CompactToss" Grid.Column="2" Content="↘" FontSize="22" Foreground="#D65328" AutomationProperties.Name="Add meter to pile" ToolTip="Put another one in the pile"/>
+    <Button x:Name="ExpandButton" Grid.Column="3" Content="↗" FontSize="18" AutomationProperties.Name="Expand" ToolTip="Expand (Esc)"/>
+    <Button x:Name="CompactClose" Grid.Column="4" Content="×" FontSize="18" AutomationProperties.Name="Close"/>
+   </Grid>
+  </Grid>
+ </Border>
+</Window>

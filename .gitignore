@@ -1,0 +1,21 @@
+# Your pile and account checks belong to you.
+pile-state.json
+*-state.json
+usage-check.json
+parser-results.txt
+.test-results/
+
+# Generated binaries and release files.
+*.exe
+*.pdb
+*.zip
+dist/
+
+# Editor and operating-system clutter.
+.vs/
+.idea/
+*.user
+*.suo
+*.tmp
+Thumbs.db
+Desktop.ini
